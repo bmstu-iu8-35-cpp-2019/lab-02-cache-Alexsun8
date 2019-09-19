@@ -82,7 +82,8 @@ int *make_buffer(size_t n, int lenta, std::string order) {
 int *make_a_bufffer_preorder(size_t n, size_t lenta) {
   int *buffer = new int[n];
   for (size_t i = 0, j = lenta; i < n; i++) {
-    buffer[i] = rand();
+      int t = clock();
+      buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
     if (i % lenta == 0) {
       buffer[i] = j;
       j += lenta;
@@ -97,9 +98,10 @@ int *make_a_bufffer_postorder(size_t n, int lenta) {
   int *buffer = new int[n];
   int j = n / lenta - lenta;
   for (int i = n - 1; i >= 0; i--) {
-    buffer[i] = rand();
-    if (i % lenta == lenta - 1) {
-      buffer[i] = j - 1;
+      int t = clock();
+      buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
+      if (i % lenta == lenta - 1) {
+        buffer[i] = j - 1;
       j -= lenta;
     }
     if (j < lenta) buffer[i] = n - 1;
@@ -113,7 +115,8 @@ int *make_a_bufffer_randorder(size_t n, int lenta) {
   int *buffer = new int[n];
   size_t r, i = 0;
   while (num.size() > 0) {
-    r = rand() % num.size();
+    int t = clock();
+    r = rand_r(reinterpret_cast<unsigned int *>(&t)) % num.size();
     buffer[i] = num[r];
     i = num[r];
     num.erase(num.begin() + r);
@@ -148,11 +151,10 @@ int mainF() {
       "/home/alexsun8/CLionProjects/lab2/lab-02-cache-Alexsun8/report.md");
   file.clear();
   file.close();
-  //	srand(time(NULL));
   int lenta = 64;
   std::vector<Experiment> exps;
   Report rep;
-  unsigned long int lmin, lmax;
+  unsigned int lmin, lmax;
   lmin = 65536;    // 64kb
   lmax = 4194304;  // 4mb
   // lmax = 1048576;
@@ -168,12 +170,12 @@ int mainF() {
     x = 0;
     while (pow(2, x) != lmin / 2) x++;
     l = 0;
-    for (unsigned long int memory = lmin / 2; memory <= (2 * lmax);) {
+    for (unsigned int memory = lmin / 2; memory <= (2 * lmax);) {
       std::cout << "mem = " << memory << std::endl;
       l++;
       exps.push_back(experiment(l, memory / 4, lenta, type_order));
       x++;
-      memory = (int)pow(2, x);
+      memory = static_cast<int>(pow(2, x));
     }
 
     rep.make(type_order, exps);
