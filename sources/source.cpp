@@ -70,14 +70,8 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
 
   //закончить замерять время
   auto time = end - start;
-<<<<<<< HEAD
   Experiment exp(his_number, (n * 4 / 1024), time.count()*lenta / (1000*n));
-  std::cout <<  time.count()*lenta/(1000*n) << std::endl;
-=======
-  Experiment exp(his_number, (n * 4 / 1024), time.count() / 100);
-  //  std::cout << "time: " << time.count() << std::endl;
->>>>>>> 1f9e093444e6b1a48d58df6d4a83354c287ff87a
-
+  std::cout <<  time.count()*lenta/(1000*n) << std::endl;   
   delete[] buffer;
   return exp;
 }
