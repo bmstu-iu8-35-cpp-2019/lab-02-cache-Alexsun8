@@ -72,7 +72,8 @@ Experiment experiment(int his_number, int n, int lenta,
 
   //закончить замерять время
   auto time = end - start;
-  Experiment exp(his_number, (n * 4 / 1024), static_cast<double>(time.count()*lenta / (2000*n)));
+  Experiment exp(his_number, (n * 4 / 1024), 
+                 static_cast<double>(time.count()*lenta / (2000*n)));
   std::cout <<  static_cast<double>(time.count()*lenta/(2000*n)) << std::endl;
   delete[] buffer;
   return exp;
@@ -102,7 +103,7 @@ int *make_a_bufffer_preorder(int n, int lenta) {
 
 int *make_a_bufffer_postorder(int n, int lenta) {
   int *buffer = new int[n];
-  int j = n / lenta - lenta;
+  int j = n - lenta;
   for (int i = n - 1; i >= 0; i--) {
       int t = clock();
       buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
@@ -167,16 +168,16 @@ int mainF() {
   int x;
   int l;
 
-  std::string type_order;
+  std::string type_order = "";
   for (int order = 0; order < 3; order++) {
     // int order = 0;
     if (order == 0) {
-      type_order = "preorder";
+      type_order += "preorder";
     } else {
     if (order == 1) {
-      type_order = "postorder";
+      type_order += "postorder";
     } else {
-    if (order == 2) type_order = "randorder";
+    if (order == 2) type_order += "randorder";
     }
     }
       std::cout << "buf ok" << std::endl;
@@ -193,6 +194,7 @@ int mainF() {
     rep.make(type_order, exps);
     write_report(rep);
     exps.clear();
+    type_order.clear();
     rep.clear();
   }
   return 0;
