@@ -30,7 +30,7 @@ Experiment experiment(int his_number, size_t n, int lenta,
 
   int j = 0;
   if (order == "preorder") {
-    while (j < n - lenta) {
+    while (j < static_cast<int>(n - lenta)) {
       j = buffer[j];
     }
     j = buffer[j];
