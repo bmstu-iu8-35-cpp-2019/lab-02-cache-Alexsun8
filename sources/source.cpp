@@ -20,7 +20,7 @@
 
 //#pragma intrinsic(__rdtsc)
 
-Experiment experiment(int his_number, size_t n, int lenta,
+Experiment experiment(int his_number, unsigned int n, int lenta,
                       std::string &order) {
   //шаг 1: создание буффера
   int *buffer = make_buffer(n, lenta, order);
@@ -85,7 +85,7 @@ int *make_buffer(size_t n, int lenta, std::string order) {
   return nullptr;
 }
 
-int *make_a_bufffer_preorder(size_t n, int lenta) {
+int *make_a_bufffer_preorder(unsigned int n, int lenta) {
   int *buffer = new int[n];
   for (size_t i = 0, j = lenta; i < n; i++) {
       int t = clock();
@@ -100,7 +100,7 @@ int *make_a_bufffer_preorder(size_t n, int lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_postorder(size_t n, int lenta) {
+int *make_a_bufffer_postorder(unsigned int n, int lenta) {
   int *buffer = new int[n];
   int j = n / lenta - lenta;
   for (int i = n - 1; i >= 0; i--) {
@@ -115,7 +115,7 @@ int *make_a_bufffer_postorder(size_t n, int lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_randorder(size_t n, int lenta) {
+int *make_a_bufffer_randorder(unsigned int n, int lenta) {
   std::vector<int> num(n);
   for (size_t i = 0; i * lenta < n; i++) num.push_back(i * lenta);
   int *buffer = new int[n];
