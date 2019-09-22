@@ -1,6 +1,6 @@
 
-investigation: 
-travel_variant: preorder
+##investigation: 
+#travel_variant: preorder
   experiments: 
 - experiment: 
     number: 1
@@ -60,8 +60,8 @@ travel_variant: preorder
 <img src="preorder.png"/>
 
 
-investigation: 
-travel_variant: postorder
+##investigation: 
+#travel_variant: postorder
   experiments: 
 - experiment: 
     number: 1
@@ -121,8 +121,8 @@ travel_variant: postorder
 <img src="postorder.png" />
 
 
-investigation: 
-travel_variant: randorder
+##investigation: 
+#travel_variant: randorder
   experiments: 
 - experiment: 
     number: 1
