@@ -73,16 +73,16 @@ class Report {
   }
 };
 
-Experiment experiment(int his_nuber, size_t n, size_t lenta,
+Experiment experiment(int his_nuber, int n, int lenta,
                       std::string& order);
 
-int* make_buffer(size_t n, int lenta, std::string order);
+int* make_buffer(int n, int lenta, std::string order);
 
-int* make_a_bufffer_preorder(size_t n, size_t lenta);
+int* make_a_bufffer_preorder(int n, int lenta);
 
-int* make_a_bufffer_postorder(size_t n, int lenta);
+int* make_a_bufffer_postorder(int n, int lenta);
 
-int* make_a_bufffer_randorder(size_t n, int lenta);
+int* make_a_bufffer_randorder(int n, int lenta);
 
 void write_report(Report report);
 
