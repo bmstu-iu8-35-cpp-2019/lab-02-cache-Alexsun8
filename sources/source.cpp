@@ -73,8 +73,8 @@ Experiment experiment(int his_number, int n, int lenta,
   //закончить замерять время
   auto time = end - start;
   Experiment exp(his_number, (n * 4 / 1024),
-                 static_cast<double>(static_cast<unsigned int>(time.count()*lenta) / (2000*n)));
-  std::cout <<  static_cast<double>(static_cast<unsigned int>(time.count()*lenta)/(2000*n)) << std::endl;
+                 static_cast<double>(time.count()*lenta / (2000*n)));
+  std::cout <<  static_cast<double>(time.count()*lenta/(2000*n)) << std::endl;
   delete[] buffer;
   return exp;
 }
