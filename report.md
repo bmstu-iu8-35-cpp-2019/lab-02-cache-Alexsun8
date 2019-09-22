@@ -57,8 +57,7 @@ travel_variant: preorder
     results: 
       duration: 1841 ns
 
-
-![Image alt](https://github.com/bmstu-iu8-35-cpp-2019/lab-02-cache-Alexsun8/edit/lab2.0/preorder.png)
+<img src="preorder.png" width="200" height="50"/>
 
 
 investigation: 
@@ -119,7 +118,7 @@ travel_variant: postorder
     results: 
       duration: 1844 ns
 
-![Image alt](https://github.com/bmstu-iu8-35-cpp-2019/lab-02-cache-Alexsun8/edit/lab2.0/postorder.png)
+<img src="postorder.png" width="200" height="50"/>
 
 
 investigation: 
@@ -180,4 +179,4 @@ travel_variant: randorder
     results: 
       duration: 1846 ns
 
-![Image alt](https://github.com/bmstu-iu8-35-cpp-2019/lab-02-cache-Alexsun8/edit/lab2.0/randorder.png)
+<img src="randorder.png" width="200" height="50"/>
