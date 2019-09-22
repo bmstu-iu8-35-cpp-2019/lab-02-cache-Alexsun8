@@ -25,7 +25,8 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
   //шаг 1: создание буффера
   int *buffer = make_buffer(n, lenta, order);
   //шаг 2: прогрев буффера
-  //  std::cout << "buf ok" << std::endl;
+      std::cout << "buf ok" << std::endl;
+
 
   size_t j = 0;
   if (order == "preorder") {
@@ -51,22 +52,26 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
     start = std::chrono::system_clock::now();
     //начать замер времни
     int k = 0;
-    TIS(k = buffer[k];)
-
+    size_t i = 0;
+    while(i<n/lenta) {
+        TIS(k = buffer[k];)
+    }
     end = std::chrono::system_clock::now();
   } else {
     start = std::chrono::system_clock::now();
     //начать замер времни
     int k = n - 1;
-    TIS(k = buffer[k];)
-
+      size_t i = 0;
+      while(i<n/lenta) {
+        TIS(k = buffer[k];)
+    }
     end = std::chrono::system_clock::now();
   }
 
   //закончить замерять время
   auto time = end - start;
-  Experiment exp(his_number, (n * 4 / 1024), time.count() / 100);
-  std::cout << "time: " << time.count() << std::endl;
+  Experiment exp(his_number, (n * 4 / 1024), time.count()*lenta / (1000*n));
+  std::cout <<  time.count()*lenta/(1000*n) << std::endl;
 
   delete[] buffer;
   return exp;
@@ -90,7 +95,7 @@ int *make_a_bufffer_preorder(size_t n, size_t lenta) {
       if (i + lenta == n) buffer[i] = 0;
     }
   }
-  std::cout << "buf ok" << std::endl;
+  //std::cout << "buf ok" << std::endl;
   return buffer;
 }
 
@@ -167,11 +172,12 @@ int mainF() {
     if (order == 0) type_order = "preorder";
     if (order == 1) type_order = "postorder";
     if (order == 2) type_order = "randorder";
+      std::cout << "buf ok" << std::endl;
     x = 0;
     while (pow(2, x) != lmin / 2) x++;
     l = 0;
     for (unsigned int memory = lmin / 2; memory <= (2 * lmax);) {
-      std::cout << "mem = " << memory << std::endl;
+     // std::cout << "mem = " << memory << std::endl;
       l++;
       exps.push_back(experiment(l, memory / 4, lenta, type_order));
       x++;
