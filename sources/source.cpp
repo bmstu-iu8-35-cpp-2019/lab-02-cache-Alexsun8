@@ -70,8 +70,13 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
 
   //закончить замерять время
   auto time = end - start;
+<<<<<<< HEAD
   Experiment exp(his_number, (n * 4 / 1024), time.count()*lenta / (1000*n));
   std::cout <<  time.count()*lenta/(1000*n) << std::endl;
+=======
+  Experiment exp(his_number, (n * 4 / 1024), time.count() / 100);
+  //  std::cout << "time: " << time.count() << std::endl;
+>>>>>>> 1f9e093444e6b1a48d58df6d4a83354c287ff87a
 
   delete[] buffer;
   return exp;
@@ -95,7 +100,11 @@ int *make_a_bufffer_preorder(size_t n, size_t lenta) {
       if (i + lenta == n) buffer[i] = 0;
     }
   }
+<<<<<<< HEAD
   //std::cout << "buf ok" << std::endl;
+=======
+  // std::cout << "buf ok" << std::endl;
+>>>>>>> 1f9e093444e6b1a48d58df6d4a83354c287ff87a
   return buffer;
 }
 
@@ -177,7 +186,11 @@ int mainF() {
     while (pow(2, x) != lmin / 2) x++;
     l = 0;
     for (unsigned int memory = lmin / 2; memory <= (2 * lmax);) {
+<<<<<<< HEAD
      // std::cout << "mem = " << memory << std::endl;
+=======
+      // std::cout << "mem = " << memory << std::endl;
+>>>>>>> 1f9e093444e6b1a48d58df6d4a83354c287ff87a
       l++;
       exps.push_back(experiment(l, memory / 4, lenta, type_order));
       x++;
