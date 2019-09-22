@@ -28,7 +28,7 @@ Experiment experiment(int his_number, size_t n, int lenta,
   //    std::cout << "buf ok" << std::endl;
 
 
-  size_t j = 0;
+  int j = 0;
   if (order == "preorder") {
     while (j < n - lenta) {
       j = buffer[j];
@@ -177,6 +177,7 @@ int mainF() {
       type_order = "postorder";
     } else {
     if (order == 2) type_order = "randorder";
+    }
     }
       std::cout << "buf ok" << std::endl;
     x = 0;
