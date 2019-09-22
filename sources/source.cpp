@@ -20,7 +20,7 @@
 
 //#pragma intrinsic(__rdtsc)
 
-Experiment experiment(int his_number, unsigned int n, int lenta,
+Experiment experiment(int his_number, int n, int lenta,
                       std::string &order) {
   //шаг 1: создание буффера
   int *buffer = make_buffer(n, lenta, order);
@@ -30,7 +30,7 @@ Experiment experiment(int his_number, unsigned int n, int lenta,
 
   int j = 0;
   if (order == "preorder") {
-    while (j < static_cast<int>(n - lenta)) {
+    while (j < (n - lenta)) {
       j = buffer[j];
     }
     j = buffer[j];
@@ -43,14 +43,14 @@ Experiment experiment(int his_number, unsigned int n, int lenta,
     j = buffer[j];
   }
   if (order == "randorder") {
-    for (size_t l = 0; l * lenta < n; l++) j = buffer[j];
+    for (int l = 0; l * lenta < n; l++) j = buffer[j];
   }
 
   // шаг 3: замер
   std::chrono::time_point<std::chrono::system_clock> start, end;
     if (order == "preorder" || order == "randorder") {
         int k = 0;
-        size_t i = 0;
+        int i = 0;
         start = std::chrono::system_clock::now();
       //начать замер времни
     while (i < n/lenta) {
@@ -59,7 +59,7 @@ Experiment experiment(int his_number, unsigned int n, int lenta,
     }
     end = std::chrono::system_clock::now();
     } else {
-        size_t i = 0;
+        int i = 0;
         //начать замер времни
         int k = n - 1;
         start = std::chrono::system_clock::now();
@@ -72,22 +72,22 @@ Experiment experiment(int his_number, unsigned int n, int lenta,
 
   //закончить замерять время
   auto time = end - start;
-  Experiment exp(his_number, (n * 4 / 1024), time.count()*lenta / (2000*n));
-  std::cout <<  time.count()*lenta/(2000*n) << std::endl;
+  Experiment exp(his_number, (n * 4 / 1024), static_cast<double>(time.count()*lenta / (2000*n)));
+  std::cout <<  static_cast<double>(time.count()*lenta/(2000*n)) << std::endl;
   delete[] buffer;
   return exp;
 }
 
-int *make_buffer(size_t n, int lenta, std::string order) {
+int *make_buffer(int n, int lenta, std::string order) {
   if (order == "preorder") return make_a_bufffer_preorder(n, lenta);
   if (order == "postorder") return make_a_bufffer_postorder(n, lenta);
   if (order == "randorder") return make_a_bufffer_randorder(n, lenta);
   return nullptr;
 }
 
-int *make_a_bufffer_preorder(unsigned long n, int lenta) {
+int *make_a_bufffer_preorder(int n, int lenta) {
   int *buffer = new int[n];
-  for (size_t i = 0, j = lenta; i < n; i++) {
+  for (int i = 0, j = lenta; i < n; i++) {
       int t = clock();
       buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
     if (i % lenta == 0) {
@@ -100,7 +100,7 @@ int *make_a_bufffer_preorder(unsigned long n, int lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_postorder(unsigned long n, int lenta) {
+int *make_a_bufffer_postorder(int n, int lenta) {
   int *buffer = new int[n];
   int j = n / lenta - lenta;
   for (int i = n - 1; i >= 0; i--) {
@@ -115,11 +115,11 @@ int *make_a_bufffer_postorder(unsigned long n, int lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_randorder(unsigned long n, int lenta) {
+int *make_a_bufffer_randorder(int n, int lenta) {
   std::vector<int> num(n);
-  for (size_t i = 0; i * lenta < n; i++) num.push_back(i * lenta);
+  for (int i = 0; i * lenta < n; i++) num.push_back(i * lenta);
   int *buffer = new int[n];
-  size_t r, i = 0;
+  int r, i = 0;
   while (num.size() > 0) {
     int t = clock();
     r = rand_r(reinterpret_cast<unsigned int *>(&t)) % num.size();
@@ -160,12 +160,12 @@ int mainF() {
   int lenta = 64;
   std::vector<Experiment> exps;
   Report rep;
-  unsigned int lmin, lmax;
+  int lmin, lmax;
   lmin = 65536;    // 64kb
   lmax = 4194304;  // 4mb
   // lmax = 1048576;
-  size_t x;
-  size_t l;
+  int x;
+  int l;
 
   std::string type_order;
   for (int order = 0; order < 3; order++) {
@@ -183,7 +183,7 @@ int mainF() {
     x = 0;
     while (pow(2, x) != lmin / 2) x++;
     l = 0;
-    for (unsigned int memory = lmin / 2; memory <= (2 * lmax);) {
+    for (int memory = lmin / 2; memory <= (2 * lmax);) {
       l++;
       exps.push_back(experiment(l, memory / 4, lenta, type_order));
       x++;
