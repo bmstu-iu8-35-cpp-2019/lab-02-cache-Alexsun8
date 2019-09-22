@@ -57,7 +57,7 @@ travel_variant: preorder
     results: 
       duration: 1841 ns
 
-<img src="preorder.png" width="200" height="50"/>
+<img src="preorder.png"/>
 
 
 investigation: 
@@ -118,7 +118,7 @@ travel_variant: postorder
     results: 
       duration: 1844 ns
 
-<img src="postorder.png" width="200" height="50"/>
+<img src="postorder.png" />
 
 
 investigation: 
@@ -179,4 +179,4 @@ travel_variant: randorder
     results: 
       duration: 1846 ns
 
-<img src="randorder.png" width="200" height="50"/>
+<img src="randorder.png" />
