@@ -25,7 +25,7 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
   //шаг 1: создание буффера
   int *buffer = make_buffer(n, lenta, order);
   //шаг 2: прогрев буффера
-      std::cout << "buf ok" << std::endl;
+  //    std::cout << "buf ok" << std::endl;
 
 
   size_t j = 0;
@@ -54,7 +54,7 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
         start = std::chrono::system_clock::now();
       //начать замер времни
     while(i<n/lenta) {
-        StoTis(k = buffer[k];)
+        DUP(TIS(k = buffer[k];))
         i++;
     }
     end = std::chrono::system_clock::now();
@@ -64,7 +64,7 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
         int k = n - 1;
         start = std::chrono::system_clock::now();
         while(i<n/lenta) {
-        StoTis(k = buffer[k];)
+        DUP(TIS(k = buffer[k];))
         i++;
         }
         end = std::chrono::system_clock::now();
@@ -72,13 +72,13 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
 
   //закончить замерять время
   auto time = end - start;
-  Experiment exp(his_number, (n * 4 / 1024), time.count()*lenta / (100000*n));
-  std::cout <<  time.count()*lenta/(100000*n) << std::endl;
+  Experiment exp(his_number, (n * 4 / 1024), time.count()*lenta / (2000*n));
+  std::cout <<  time.count()*lenta/(2000*n) << std::endl;
   delete[] buffer;
   return exp;
 }
 
-int *make_buffer(size_t n, int lenta, std::string order) {
+int *make_buffer(size_t n, size_t lenta, std::string order) {
   if (order == "preorder") return make_a_bufffer_preorder(n, lenta);
   if (order == "postorder") return make_a_bufffer_postorder(n, lenta);
   if (order == "randorder") return make_a_bufffer_randorder(n, lenta);
@@ -100,7 +100,7 @@ int *make_a_bufffer_preorder(size_t n, size_t lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_postorder(size_t n, int lenta) {
+int *make_a_bufffer_postorder(size_t n, size_t lenta) {
   int *buffer = new int[n];
   int j = n / lenta - lenta;
   for (int i = n - 1; i >= 0; i--) {
@@ -115,7 +115,7 @@ int *make_a_bufffer_postorder(size_t n, int lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_randorder(size_t n, int lenta) {
+int *make_a_bufffer_randorder(size_t n, size_t lenta) {
   std::vector<int> num(n);
   for (size_t i = 0; i * lenta < n; i++) num.push_back(i * lenta);
   int *buffer = new int[n];
