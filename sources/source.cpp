@@ -20,7 +20,7 @@
 
 //#pragma intrinsic(__rdtsc)
 
-Experiment experiment(int his_number, size_t n, size_t lenta,
+Experiment experiment(int his_number, size_t n, int lenta,
                       std::string &order) {
   //шаг 1: создание буффера
   int *buffer = make_buffer(n, lenta, order);
@@ -53,7 +53,7 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
         size_t i = 0;
         start = std::chrono::system_clock::now();
       //начать замер времни
-    while(i<n/lenta) {
+    while (i < n/lenta) {
         DUP(TIS(k = buffer[k];))
         i++;
     }
@@ -63,7 +63,7 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
         //начать замер времни
         int k = n - 1;
         start = std::chrono::system_clock::now();
-        while(i<n/lenta) {
+        while (i < n/lenta) {
         DUP(TIS(k = buffer[k];))
         i++;
         }
@@ -78,14 +78,14 @@ Experiment experiment(int his_number, size_t n, size_t lenta,
   return exp;
 }
 
-int *make_buffer(size_t n, size_t lenta, std::string order) {
+int *make_buffer(size_t n, int lenta, std::string order) {
   if (order == "preorder") return make_a_bufffer_preorder(n, lenta);
   if (order == "postorder") return make_a_bufffer_postorder(n, lenta);
   if (order == "randorder") return make_a_bufffer_randorder(n, lenta);
   return nullptr;
 }
 
-int *make_a_bufffer_preorder(size_t n, size_t lenta) {
+int *make_a_bufffer_preorder(size_t n, int lenta) {
   int *buffer = new int[n];
   for (size_t i = 0, j = lenta; i < n; i++) {
       int t = clock();
@@ -100,7 +100,7 @@ int *make_a_bufffer_preorder(size_t n, size_t lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_postorder(size_t n, size_t lenta) {
+int *make_a_bufffer_postorder(size_t n, int lenta) {
   int *buffer = new int[n];
   int j = n / lenta - lenta;
   for (int i = n - 1; i >= 0; i--) {
@@ -115,7 +115,7 @@ int *make_a_bufffer_postorder(size_t n, size_t lenta) {
   return buffer;
 }
 
-int *make_a_bufffer_randorder(size_t n, size_t lenta) {
+int *make_a_bufffer_randorder(size_t n, int lenta) {
   std::vector<int> num(n);
   for (size_t i = 0; i * lenta < n; i++) num.push_back(i * lenta);
   int *buffer = new int[n];
@@ -170,9 +170,14 @@ int mainF() {
   std::string type_order;
   for (int order = 0; order < 3; order++) {
     // int order = 0;
-    if (order == 0) type_order = "preorder";
-    if (order == 1) type_order = "postorder";
+    if (order == 0) {
+      type_order = "preorder";
+    } else {
+    if (order == 1) {
+      type_order = "postorder";
+    } else {
     if (order == 2) type_order = "randorder";
+    }
       std::cout << "buf ok" << std::endl;
     x = 0;
     while (pow(2, x) != lmin / 2) x++;
