@@ -73,8 +73,8 @@ Experiment experiment(int his_number, int n, int lenta,
   //закончить замерять время
   auto time = end - start;
   Experiment exp(his_number, (n * 4 / 1024),
-                 static_cast<double>(time.count()*lenta / (2000*n)));
-  std::cout <<  static_cast<double>(time.count()*lenta/(2000*n)) << std::endl;
+                 static_cast<double>(static_cast<unsigned int>(time.count()*lenta) / (2000*n)));
+  std::cout <<  static_cast<double>(static_cast<unsigned int>(time.count()*lenta)/(2000*n)) << std::endl;
   delete[] buffer;
   return exp;
 }
@@ -117,7 +117,7 @@ int *make_a_bufffer_postorder(int n, int lenta) {
 }
 
 int *make_a_bufffer_randorder(int n, int lenta) {
-  std::vector<int> num(n);
+  std::vector<int> num;
   for (int i = 0; i * lenta < n; i++) num.push_back(i * lenta);
   int *buffer = new int[n];
   int r, i = 0;
