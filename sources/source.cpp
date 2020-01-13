@@ -14,19 +14,18 @@
 #define TIS(x) STO(STO(x))
 #define STO(x) DEC(DEC(x))
 #define DEC(x) x x x x x x x x x x
+
 #include <stdio.h>
 //#include <intrin.h>
 #include <fstream>
 
 //#pragma intrinsic(__rdtsc)
 
-Experiment experiment(int his_number, int n, int lenta,
-                      std::string &order) {
+Experiment experiment(int his_number, int n, int lenta, std::string &order) {
   //шаг 1: создание буффера
   int *buffer = make_buffer(n, lenta, order);
   //шаг 2: прогрев буффера
   //    std::cout << "buf ok" << std::endl;
-
 
   int j = 0;
   if (order == "preorder") {
@@ -48,34 +47,36 @@ Experiment experiment(int his_number, int n, int lenta,
 
   // шаг 3: замер
   std::chrono::time_point<std::chrono::system_clock> start, end;
-    if (order == "preorder" || order == "randorder") {
-        int k = 0;
-        int i = 0;
-        start = std::chrono::system_clock::now();
-      //начать замер времни
-    while (i < n/lenta) {
-        DUP(TIS(k = buffer[k];))
-        i++;
+  if (order == "preorder" || order == "randorder") {
+    int k = 0;
+    int i = 0;
+    start = std::chrono::system_clock::now();
+    //начать замер времни
+    while (i < n / lenta) {
+      DUP(TIS(k = buffer[k];))
+      i++;
     }
     end = std::chrono::system_clock::now();
-    } else {
-        int i = 0;
-        //начать замер времни
-        int k = n - 1;
-        start = std::chrono::system_clock::now();
-        while (i < n/lenta) {
-        DUP(TIS(k = buffer[k];))
-        i++;
-        }
-        end = std::chrono::system_clock::now();
-        }
+  } else {
+    int i = 0;
+    //начать замер времни
+    int k = n - 1;
+    start = std::chrono::system_clock::now();
+    while (i < n / lenta) {
+      DUP(TIS(k = buffer[k];))
+      i++;
+    }
+    end = std::chrono::system_clock::now();
+  }
 
   //закончить замерять время
   auto time = end - start;
-  Experiment exp(his_number, (n * 4 / 1024), static_cast<size_t>(
-    static_cast<double>(time.count()*lenta / (2000*n))));
-  std::cout <<  static_cast<size_t>(static_cast<double>(
-    time.count()*lenta/(2000*n))) << std::endl;
+  Experiment exp(his_number, (n * 4 / 1024),
+                 static_cast<size_t>(
+                     static_cast<double>(time.count() * lenta / (2000 * n))));
+  std::cout << static_cast<size_t>(
+                   static_cast<double>(time.count() * lenta / (2000 * n)))
+            << std::endl;
   delete[] buffer;
   return exp;
 }
@@ -90,8 +91,8 @@ int *make_buffer(int n, int lenta, std::string order) {
 int *make_a_bufffer_preorder(int n, int lenta) {
   int *buffer = new int[n];
   for (int i = 0, j = lenta; i < n; i++) {
-      int t = clock();
-      buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
+    int t = clock();
+    buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
     if (i % lenta == 0) {
       buffer[i] = j;
       j += lenta;
@@ -106,10 +107,10 @@ int *make_a_bufffer_postorder(int n, int lenta) {
   int *buffer = new int[n];
   int j = n - lenta;
   for (int i = n - 1; i >= 0; i--) {
-      int t = clock();
-      buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
-      if (i % lenta == lenta - 1) {
-        buffer[i] = j - 1;
+    int t = clock();
+    buffer[i] = rand_r(reinterpret_cast<unsigned int *>(&t)) % n;
+    if (i % lenta == lenta - 1) {
+      buffer[i] = j - 1;
       j -= lenta;
     }
     if (j < lenta) buffer[i] = n - 1;
@@ -134,8 +135,7 @@ int *make_a_bufffer_randorder(int n, int lenta) {
 
 void write_report(Report rep) {
   std::ofstream file;
-  file.open("/home/alexsun8/CLionProjects/lab2/lab-02-cache-Alexsun8/report.md",
-            std::ios::app);
+  file.open("../../report.txt", std::ios::app);
   file.clear();
   file << '\n'
        << "investigation: " << '\n'
@@ -155,8 +155,7 @@ void write_report(Report rep) {
 
 int mainF() {
   std::ofstream file;
-  file.open(
-      "/home/alexsun8/CLionProjects/lab2/lab-02-cache-Alexsun8/report.md");
+  file.open("../../report.txt");
   file.clear();
   file.close();
   int lenta = 64;
@@ -164,7 +163,7 @@ int mainF() {
   Report rep;
   int lmin, lmax;
   lmin = 65536;    // 64kb
-  lmax = 4194304;  // 4mb
+  lmax = 2097152;  // 4mb
   // lmax = 1048576;
   int x;
   int l;
@@ -175,13 +174,13 @@ int mainF() {
     if (order == 0) {
       type_order += "preorder";
     } else {
-    if (order == 1) {
-      type_order += "postorder";
-    } else {
-    if (order == 2) type_order += "randorder";
+      if (order == 1) {
+        type_order += "postorder";
+      } else {
+        if (order == 2) type_order += "randorder";
+      }
     }
-    }
-      std::cout << "buf ok" << std::endl;
+    std::cout << "buf ok" << std::endl;
     x = 0;
     while (pow(2, x) != lmin / 2) x++;
     l = 0;
